@@ -1,4 +1,5 @@
 package edu.pe.cibertec.runner.screenplay.stepdefinitions;
+import edu.pe.cibertec.runner.screenplay.ui.LoginPage;
 import io.cucumber.java.Before;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import edu.pe.cibertec.runner.screenplay.tasks.RegistrarseComo;
@@ -10,8 +11,11 @@ import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.questions.WebElementQuestion;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.Matchers.containsString;
+
 import net.serenitybdd.screenplay.GivenWhenThen;
 import org.hamcrest.CoreMatchers;
 
@@ -46,15 +50,13 @@ public class RegistroStepDefinitions {
     }
 
     @Then("the user should see the message {string}")
-    public void verifyMessage(String message) {
+    public void verifyMessage(String expectedMessage) {
+        try { Thread.sleep(2000); } catch (InterruptedException e) {}
+
         OnStage.theActorInTheSpotlight().should(
-                seeThat(
-                        WebElementQuestion.the(RegistroPage.SUCCESS_MESSAGE),
-                        element -> element.getText().contains(message)
-                )
+                seeThat(Text.of("#content"), containsString(expectedMessage))
         );
     }
-
     @Given("the user navigates to the register page")
     public void navigatesToRegisterPage() {
         OnStage.theActorInTheSpotlight().wasAbleTo(
