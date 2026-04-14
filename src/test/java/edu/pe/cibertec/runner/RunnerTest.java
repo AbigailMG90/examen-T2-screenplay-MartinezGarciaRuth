@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = "edu.pe.cibertec.stepdefinitions",
+        glue = "edu.pe.cibertec.runner.screenplay.stepdefinitions",
         plugin = {"pretty"},
         tags = "not @ignore"
 )
